@@ -108,6 +108,24 @@ main { display: block; }
 
 .card h1, .card h2, .card h3 { color: var(--primary); }
 
+/* Scroll reveal: same mechanism as the Wix build (IntersectionObserver adds
+   .is-visible; CSS does the animating). Hidden state applies only when the
+   page has JS (html.js), so visitors without it see everything at once. */
+.js main .section .card {
+  opacity: 0;
+  transform: translateY(2rem);
+  transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+  will-change: opacity, transform;
+}
+.js main .section .card.is-visible {
+  opacity: 1;
+  transform: none;
+  will-change: auto;
+}
+@media (prefers-reduced-motion: reduce) {
+  .js main .section .card { opacity: 1; transform: none; transition: none; }
+}
+
 /* Header */
 .site-header {
   position: sticky;
